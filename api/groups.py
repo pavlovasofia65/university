@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
-from models import Course
+from models import Group
+from extensions import db
 
 groups_bp = Blueprint('groups', __name__)
 

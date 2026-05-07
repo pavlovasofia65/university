@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
 from models import Student
+from extensions import db
 
 students_bp = Blueprint('students', __name__)
 

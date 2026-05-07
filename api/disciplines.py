@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
 from models import Discipline
+from extensions import db
 
 disciplines_bp = Blueprint('disciplines', __name__)
 

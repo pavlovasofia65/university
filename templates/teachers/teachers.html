@@ -1,0 +1,70 @@
+{% extends 'bases/index.html' %}
+
+{% block title %}Faculty & Staff{% endblock %}
+
+{% block header %}University Faculty Members{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="text-secondary">
+        Manage your university academic staff information here.
+    </div>
+    <a href="/teachers/add" class="btn btn-primary d-flex align-items-center">
+        <span class="me-2">+</span> Add New Faculty Member
+    </a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Full Name</th>
+                        <th>Department</th>
+                        <th>Rate</th>
+                        <th>Email Address</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for teacher in teachers %}
+                    <tr>
+                        <td class="ps-4">
+                            <div class="fw-bold">
+                                <a href="/teachers/{{ teacher.id }}" class="text-decoration-none text-dark hover-primary">
+                                    {{ teacher.surname }} {{ teacher.name }}
+                                </a>
+                            </div>
+                            <small class="text-muted">ID: #{{ teacher.id }}</small>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark border">
+                                {{ teacher.department.name if teacher.department else 'N/A' }}
+                            </span>
+                        </td>
+                        <td>{{ teacher.rate }}</td>
+                        <td><a href="mailto:{{ teacher.email }}" class="text-decoration-none">{{ teacher.email }}</a></td>
+                        <td class="text-end pe-4">
+                            <div class="btn-group">
+                                <a href="/teachers/edit/{{ teacher.id }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                <form action="/teachers/delete/{{ teacher.id }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this record?');">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center py-5">
+                            <div class="text-muted">No faculty members found.</div>
+                            <small>Try adding a new record to the database.</small>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

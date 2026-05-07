@@ -1,0 +1,45 @@
+{% extends 'bases/form.html' %}
+
+{% block title %}{{ 'Edit' if is_edit else 'Add' }} Teacher{% endblock %}
+{% block form_title %}{{ 'Edit Faculty Member' if is_edit else 'Add New Faculty Member' }}{% endblock %}
+
+{% block form_fields %}
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <label class="form-label">Surname</label>
+        <input type="text" name="surname" class="form-control" value="{{ teacher.surname if teacher else '' }}" required>
+    </div>
+    <div class="col-md-4 mb-3">
+        <label class="form-label">First Name</label>
+        <input type="text" name="name" class="form-control" value="{{ teacher.name if teacher else '' }}" required>
+    </div>
+    <div class="col-md-4 mb-3">
+        <label class="form-label">Middle Name</label>
+        <input type="text" name="middle_name" class="form-control" value="{{ teacher.middle_name if teacher else '' }}">
+    </div>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Department</label>
+    <select name="department_id" class="form-select" required>
+        <option value="" disabled {{ 'selected' if not teacher }}>Select a department...</option>
+        {% for dep in departments %}
+        <option value="{{ dep.id }}" {{ 'selected' if teacher and teacher.department_id == dep.id }}>
+            {{ dep.name }}
+        </option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Email Address</label>
+    <input type="email" name="email" class="form-control" value="{{ teacher.email if teacher else '' }}" required>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Rate</label>
+    <input type="text" name="rate" class="form-control" value="{{ teacher.rate if teacher else '' }}" placeholder="Full-rate" required>
+</div>
+{% endblock %}
+
+{% block back_url %}/teachers{% endblock %}

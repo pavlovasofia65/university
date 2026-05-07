@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from models import Course
+# from models import Course
 
 courses_bp = Blueprint('courses', __name__)
 

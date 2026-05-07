@@ -1,0 +1,46 @@
+{% extends 'bases/index.html' %}
+
+{% block title %}Teacher Profile{% endblock %}
+
+{% block header %}Faculty Member Profile{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="mb-0 text-primary">{{ teacher.surname }} {{ teacher.name }}</h3>
+                <span class="badge bg-secondary">ID: #{{ teacher.id }}</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-muted mb-1">Full Name</p>
+                    <h5>{{ teacher.surname }} {{ teacher.name }} {{ teacher.middle_name or '' }}</h5>
+                    
+                    <p class="text-muted mb-1 mt-3">Department</p>
+                    <h5>{{ teacher.department.name if teacher.department else 'Not Assigned' }}</h5>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-muted mb-1">Email</p>
+                    <h5><a href="mailto:{{ teacher.email }}" class="text-decoration-none">{{ teacher.email }}</a></h5>
+                    
+                    <p class="text-muted mb-1 mt-3">Current Rate</p>
+                    <h5>${{ teacher.rate }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-light py-3">
+            <div class="d-flex gap-2">
+                <a href="/teachers/edit/{{ teacher.id }}" class="btn btn-primary">Edit Details</a>
+                <a href="/teachers" class="btn btn-outline-secondary">Back to List</a>
+                
+                <form action="/teachers/delete/{{ teacher.id }}" method="POST" class="ms-auto" onsubmit="return confirm('Delete this teacher permanently?');">
+                    <button type="submit" class="btn btn-danger">Delete Faculty</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
