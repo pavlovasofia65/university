@@ -69,7 +69,6 @@ class Lesson(db.Model):
     type = db.Column('lesson_type', db.String(45), nullable=False)
     location = db.Column('lesson_location', db.String(45), nullable=False)
 
-# Таблиця зв'язку Lesson_Groups (вона в тебе без Identity в SQL)
 class Lesson_Groups(db.Model):
     __tablename__ = 'Lesson_Groups'
     lesson_id = db.Column('lg_lesson_id', db.Integer, db.ForeignKey('Lessons.lesson_id'), primary_key=True)

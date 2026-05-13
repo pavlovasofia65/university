@@ -1,0 +1,43 @@
+{% extends 'bases/index.html' %}
+
+{% block title %}Student Profile{% endblock %}
+
+{% block header %}Student Profile{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="mb-0 text-primary">{{ student.surname }} {{ student.name }}</h3>
+                <span class="badge bg-secondary">ID: #{{ student.id }}</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-muted mb-1">Full Name</p>
+                    <h5>{{ student.surname }} {{ student.name }} {{ student.middle_name or '' }}</h5>
+                    
+                    <p class="text-muted mb-1 mt-3">Group</p>
+                    <h5><a href="/groups/{{ student.group.id }}" class="text-decoration-none">{{student.group.name}}</a></h5>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-muted mb-1">Advisor</p>
+                    <h5><a href="/teachers/{{ student.group.advisor_id }}" class="text-decoration-none">{{ student.group.advisor.surname }} {{ student.group.advisor.name }}</a></h5>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-light py-3">
+            <div class="d-flex gap-2">
+                <a href="/students/edit/{{ student.id }}" class="btn btn-primary">Edit Details</a>
+                <a href="/students" class="btn btn-outline-secondary">Back to List</a>
+                
+                <form action="/students/delete/{{ student.id }}" method="POST" class="ms-auto" onsubmit="return confirm('Delete this student permanently?');">
+                    <button type="submit" class="btn btn-danger">Delete Student</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

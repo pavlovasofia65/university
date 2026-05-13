@@ -1,0 +1,35 @@
+{% extends 'bases/form.html' %}
+
+{% block title %}{{ 'Edit' if is_edit else 'Add' }} Student{% endblock %}
+{% block form_title %}{{ 'Edit Student' if is_edit else 'Add New Student' }}{% endblock %}
+
+{% block form_fields %}
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <label class="form-label">Surname</label>
+        <input type="text" name="surname" class="form-control" value="{{ student.surname if student else '' }}" required>
+    </div>
+    <div class="col-md-4 mb-3">
+        <label class="form-label">First Name</label>
+        <input type="text" name="name" class="form-control" value="{{ student.name if student else '' }}" required>
+    </div>
+    <div class="col-md-4 mb-3">
+        <label class="form-label">Middle Name</label>
+        <input type="text" name="middle_name" class="form-control" value="{{ student.middle_name if student else '' }}">
+    </div>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Group</label>
+    <select name="group_id" class="form-select" required>
+        <option value="" disabled {{ 'selected' if not student }}>Select a group...</option>
+        {% for group in groups %}
+        <option value="{{ group.id }}" {{ 'selected' if student and student.group_id == group.id }}>
+            {{ group.name }}
+        </option>
+        {% endfor %}
+    </select>
+</div>
+{% endblock %}
+
+{% block back_url %}/students{% endblock %}

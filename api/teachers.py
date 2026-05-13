@@ -56,7 +56,6 @@ def edit_teacher(id):
         except Exception as e:
             db.session.rollback()
             return f"Error: {str(e)}"
-            
     return render_template('teachers/teacher_form.html', teacher=teacher, departments=departments, is_edit=True)
 
 @teachers_bp.route('/teachers/delete/<int:id>', methods=['GET', 'POST'])

@@ -46,7 +46,6 @@ def setup_database():
         db.create_all()
         print("Всі таблиці створені!")
 
-# Запускаємо налаштування перед стартом
 setup_database()
 
 @app.route('/')
